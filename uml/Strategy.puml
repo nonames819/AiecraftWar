@@ -1,0 +1,32 @@
+@startuml
+
+Abstract class Game {
+
+}
+
+class AbstractAircraft {
+    - ShootStrategy strategy
+    + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, ShootStrategy strategy)
+    + setShootStrategy(ShootStrategy strategy): void
+    + shoot() : List<BaseBullet>
+}
+
+class DirectShootStrategy {
+    + implyShootStrategy(AbstractAircraft aircraft) : List<BaseBullet>
+}
+
+class ScatterShootStrategy {
+    + implyShootStrategy(AbstractAircraft aircraft) : List<BaseBullet>
+}
+
+abstract class ShootStrategy{
+    + generateBulletList(AbstractAircraft aircraft) : List<BaseBullet>
+    + {abstract} implyShootStrategy(AbstractAircraft aircraft) : List<BaseBullet>
+}
+
+ShootStrategy <|-- ScatterShootStrategy
+ShootStrategy <|-- DirectShootStrategy
+AbstractAircraft o--> ShootStrategy
+Game ..> AbstractAircraft
+
+@enduml

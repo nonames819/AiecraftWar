@@ -1,0 +1,73 @@
+@startuml
+
+Interface PropFactory {
+    + {abstract} createProp(AbstractAircraft src): AbstractProp
+}
+\
+
+note left of PropFactory
+    获取产生道具的飞行器坐标从而确定道具产生位置
+endnote
+
+Abstract AbstractProp {
+    + AbstractProp(int locationX, locationY, int speedX, int speedY)
+    + AbstractProp(AbstractAircraft craft)
+    + {abstract} effect():void
+}
+
+class HpSupply {
+    - hpRecovered: int
+    + HpSupply(int locationX, int locationY, int speedX, int speedY, int hpRecovered)
+    + HpSupply(AbstractAircraft aircraft, int hpRecovered)
+    + effect(AbstractAircraft obj):void
+}
+
+class FireSupply {
+    - powerIncreased: int
+    + FireSupply(int locationX, int locationY, int speedX, int speedY, int powerIncreased)
+    + FireSupply(AbstractAircraft aircraft, int powerIncreased)
+    + effect(AbstractAircraft obj):void
+}
+
+class BombSupply {
+    - {static} reminder : BombReminder
+    + BombSupply(int locationX, int locationY, int speedX, int speedY, int value)
+    + BombSupply(AbstractAircraft obj)
+    + effect():void
+}
+
+class HpSupplyFactory {
+    + createProp(AbstractAircraft src): HpSupply
+}
+
+class FireSupplyFactory {
+    + createProp(AbstractAircraft src): FireSupply
+}
+
+class BombSupplyFactory {
+    + createProp(AbstractAircraft src): BombSupply
+}
+
+abstract class Game{}
+Game ...> AbstractProp
+Game ...> PropFactory
+
+HpSupply    -up--|>   AbstractProp
+FireSupply  -up--|>   AbstractProp
+BombSupply   -up--|>   AbstractProp
+
+PropFactory <|.. HpSupplyFactory
+PropFactory   <|..   FireSupplyFactory
+PropFactory   <|..   BombSupplyFactory
+
+HpSupplyFactory ...>    HpSupply
+FireSupplyFactory   ...>    FireSupply
+BombSupplyFactory   ...>    BombSupply
+
+abstract class AbstractFlyingObject {
+
+}
+
+AbstractFlyingObject <|-- AbstractProp
+
+@enduml

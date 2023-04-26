@@ -1,0 +1,46 @@
+@startuml
+Abstract class Game{
+}
+
+class Score {
+    - score : int
+    - player : String
+    - time : String
+    - difficulty : String
+    + Score(int score, String player, String time)
+    + setScore(int score) : void
+    + setPlayer(String name) : void
+    + setTime(String time) : void
+    + getScore() : int
+    + getPlayer() : String
+    + getTime() : String
+    + toString() : String
+    + compareTo() : int
+}
+
+interface ScoreDao {
+    + getAllScores() : List<Score>
+    + doAddScore(Score score) : void
+    + doDelete(int rank) : void
+    + writeToFile() : void
+}
+
+class ScoreDaoImpl {
+    - scoreList : List<Score>
+    - filename : String
+    + ScoreDaoImpl(String filename)
+    - readFromFile() : void
+    + getAllScores() : List<Score>
+    + doAddScore(Score score) : void
+    + doDeleteScore(int rank) : void
+    + writeToFile() : void
+}
+
+interface Comparable<Score>
+
+ScoreDao <|... ScoreDaoImpl
+Score <--right- ScoreDaoImpl
+Game ..right.> ScoreDao
+Score .up.|> Comparable
+
+@enduml

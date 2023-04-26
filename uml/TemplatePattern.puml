@@ -1,0 +1,64 @@
+@startuml
+class Main{
+}
+
+abstract class Game{
+#enemyMaxNumber:int
+#timeDuration:int
+#{abstract}setEnemyFactories():void
+#{abstract}setPropsFactories():void
+#{abstract}setBoundaryValue():void
+#{abstract}setEnemyMaxNumber():void
+#{abstract}setCycleDuration():void
+#{abstract}setHeroAircraft():void
+#{abstract}extraProcess():void
+
++action():void
+#createEnemy():void
+#shootAction():void
+#bulletsMoveAction():void
+#aircraftsMoveAction():void
+#propsMoveAction():void
+#crashCheckAction():void
+#postProcessAction():void
+#repaint():void
++paint():void
++paintImageWithPositionRevised():void
++paintScoreAndLife():void
+}
+
+class EasyGame{
+#setEnemyFactories():void
+#setPropsFactories():void
+#setBoundaryValue():void
+#setEnemyMaxNumber():void
+#setCycleDuration():void
+#setHeroAircraft():void
+}
+
+class NormalGame{
+#setEnemyFactories():void
+#setPropsFactories():void
+#setBoundaryValue():void
+#setEnemyMaxNumber():void
+#setCycleDuration():void
+#setHeroAircraft():void
+#extraProcess():void
+}
+
+class DifficultGame{
+#setEnemyFactories():void
+#setPropsFactories():void
+#setBoundaryValue():void
+#setEnemyMaxNumber():void
+#setCycleDuration():void
+#setHeroAircraft():void
+#extraProcess():void
+}
+
+Main..>Game
+
+EasyGame -up-|> Game
+NormalGame -up-|> Game
+DifficultGame -up-|> Game
+@enduml

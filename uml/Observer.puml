@@ -1,0 +1,52 @@
+@startuml
+
+class BombReminder {
+    # observers : List<BombObserver>
+    + addObserver(BombObserver bombObserver) : void
+    + deleteObserver(BombObserver bombObserver) : void
+    + deleteAll() : void
+    + notifyObservers() : void
+}
+note left of BombReminder
+    发布者
+endnote
+class EnemyBullet {
+    + update() : void
+    + invalid() : boolean
+}
+
+class AbstractEnemy {
+    + update() : void
+    + invalid() : boolean
+}
+
+interface BombObserver {
+    + update() : void
+    + invalid() : boolean
+}
+
+
+
+Abstract class Game {
+}
+
+class BombProp{
+    - {static} reminder : BombReminder
+    + BombProp(int locationX, int locationY, int speedX, int speedY)
+    + effect(AbstractAircraft obj):void
+    + getReminder():BombReminder
+}
+note left of Game
+    使用者
+endnote
+note right of BombProp
+    使用者
+endnote
+
+BombProp ...> BombReminder
+Game ...> BombReminder
+BombReminder o--> BombObserver
+BombObserver <|... AbstractEnemy
+BombObserver <|... EnemyBullet
+
+@enduml

@@ -1,0 +1,79 @@
+@startuml
+Abstract class Game {
+
+}
+
+Interface EnemyFactory {
+    + {abstract} createEnemy(): AbstractEnemy
+}
+
+Abstract class AbstractProp{
+}
+
+Abstract AbstractEnemy {
+    # int power
+    # int shootNum
+    # int direction
+    + AbstractEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + shoot(): List<Bullet>
+    + forward(): void
+    + setPower(): void
+    + setDirection(): void
+    + setShootNum(): void
+    + dropProps(List<AbstractProp> factory): void
+}
+
+
+class MobEnemy {
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+}
+
+class EliteEnemy {
+    + PROPRATE : List<AbstractProp>
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + dropProps(List<AbstractProp> factory): void
+}
+
+class BossEnemy {
+    + PROPRATE : List<AbstractProp>
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + dropProps(List<AbstractProp> factory): void
+}
+
+class MobEnemyFactory {
+    + createEnemy() : MobEnemy
+}
+
+class EliteEnemyFactory {
+    + createEnemy() : EliteEnemy
+}
+
+class BossEnemyFactory {
+    + createEnemy() : BossEnemy
+}
+
+Game ...> AbstractEnemy
+Game ...> EnemyFactory
+
+AbstractEnemy -up-|> AbstractAircraft
+AbstractEnemy -up-> AbstractProp
+
+AbstractEnemy    <|---   MobEnemy
+AbstractEnemy  <|---  EliteEnemy
+AbstractEnemy   <|---   BossEnemy
+
+EnemyFactory <|.. MobEnemyFactory
+EnemyFactory   <|..   EliteEnemyFactory
+EnemyFactory    <|..   BossEnemyFactory
+
+MobEnemyFactory ...> MobEnemy:<<create>>
+EliteEnemyFactory   ...>    EliteEnemy:<<create>>
+BossEnemyFactory    ...>    BossEnemy:<<create>>
+
+abstract class AbstractAircraft {
+
+}
+
+
+
+@enduml
