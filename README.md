@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-# AiecraftWar
-=======
 # AircraftWar
->>>>>>> a7e9c35 (finish)
+HITSZ 面向对象的软件构造课题
+
